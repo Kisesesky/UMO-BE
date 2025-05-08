@@ -1,6 +1,6 @@
 # ☂️ UMO - Urban Umbrella Mobility
 
-![UMO Logo](./assets/umo-logo.png)
+![UMO Logo](./assets/logo/umo-logo.png)
 
 > **비 오는 날, 우산은 우모가 챙길게.**
 
