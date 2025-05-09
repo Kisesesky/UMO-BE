@@ -2,7 +2,7 @@
 
 ![UMO Logo](./assets/logo/umo-logo.png)
 
-![UMO Logo](./assets/logo/umo-face2.png)
+![UMO Face](./assets/character/umo-face2.png)
 
 > **비 오는 날, 우산은 우모가 챙길게.**
 
@@ -12,7 +12,7 @@ UMO는 도시 속 사용자들이 비를 걱정하지 않고 자유롭게 이동
 
 ## 🐱 소개
 
-![UMO Logo](./assets/logo/umo-body.png)
+![UMO](./assets/character/umo-body.png)
 
 UMO는 우산을 필요한 순간에 대여하고, 자유롭게 반납할 수 있는 **도시형 공유 우산 플랫폼**입니다.  
 마스코트인 **우모(Umo)** 는 사용자에게 귀엽고 신뢰감 있는 가이드 역할을 하며, 비 오는 날 당신의 곁을 지켜줍니다.
