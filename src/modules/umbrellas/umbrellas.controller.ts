@@ -1,15 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Param, Delete, Body, Patch } from '@nestjs/common';
 import { UmbrellasService } from './umbrellas.service';
-import { CreateUmbrellaDto } from './dto/create-umbrella.dto';
-import { UpdateUmbrellaDto } from './dto/update-umbrella.dto';
 
 @Controller('umbrellas')
 export class UmbrellasController {
   constructor(private readonly umbrellasService: UmbrellasService) {}
 
   @Post()
-  create(@Body() createUmbrellaDto: CreateUmbrellaDto) {
-    return this.umbrellasService.create(createUmbrellaDto);
+  create(@Body() body: { qrCode: string }) {
+    return this.umbrellasService.create({ qrCode: body.qrCode });
   }
 
   @Get()
@@ -22,9 +20,9 @@ export class UmbrellasController {
     return this.umbrellasService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUmbrellaDto: UpdateUmbrellaDto) {
-    return this.umbrellasService.update(+id, updateUmbrellaDto);
+  @Patch(':id/status')
+  updateStatus(@Param('id') id: string, @Body('status') status: string) {
+    return this.umbrellasService.updateStatus(+id, status as any);
   }
 
   @Delete(':id')

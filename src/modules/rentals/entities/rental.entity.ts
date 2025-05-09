@@ -1,24 +1,33 @@
-import { Umbrella } from "src/modules/umbrellas/entities/umbrella.entity";
-import { User } from "src/modules/users/entities/user.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Umbrella } from 'src/modules/umbrellas/entities/umbrella.entity';
+import { User } from 'src/modules/users/entities/user.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
 
 @Entity()
 export class Rental {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, user => user.rentals)
+  @ManyToOne(() => User, { eager: true })
   user: User;
 
-  @ManyToOne(() => Umbrella, umbrella => umbrella.rentals)
+  @ManyToOne(() => Umbrella, { eager: true })
   umbrella: Umbrella;
 
-  @Column()
-  startTime: Date;
+  @CreateDateColumn()
+  rentedAt: Date;
 
   @Column({ nullable: true })
-  endTime: Date;
+  returnedAt: Date;
 
-  @Column({ default: false })
-  isPaid: boolean;
+  @Column({ type: 'float', nullable: true })
+  rentLatitude: number;
+
+  @Column({ type: 'float', nullable: true })
+  rentLongitude: number;
+
+  @Column({ type: 'float', nullable: true })
+  returnLatitude: number;
+
+  @Column({ type: 'float', nullable: true })
+  returnLongitude: number;
 }

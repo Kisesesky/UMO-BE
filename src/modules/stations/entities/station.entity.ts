@@ -1,5 +1,5 @@
-import { Umbrella } from "src/modules/umbrellas/entities/umbrella.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Umbrella } from 'src/modules/umbrellas/entities/umbrella.entity';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity()
 export class Station {
@@ -9,8 +9,11 @@ export class Station {
   @Column()
   name: string;
 
-  @Column({ type: 'geometry', spatialFeatureType: 'Point', srid: 4326 })
-  location: string;
+  @Column()
+  latitude: number;
+
+  @Column()
+  longitude: number;
 
   @OneToMany(() => Umbrella, umbrella => umbrella.station)
   umbrellas: Umbrella[];

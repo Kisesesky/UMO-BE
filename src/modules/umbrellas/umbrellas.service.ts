@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUmbrellaDto } from './dto/create-umbrella.dto';
-import { UpdateUmbrellaDto } from './dto/update-umbrella.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Umbrella } from './entities/umbrella.entity';
 
 @Injectable()
 export class UmbrellasService {
-  create(createUmbrellaDto: CreateUmbrellaDto) {
-    return 'This action adds a new umbrella';
+  constructor(
+    @InjectRepository(Umbrella)
+    private umbrellaRepository: Repository<Umbrella>,
+  ) {}
+
+  create(data: Partial<Umbrella>) {
+    const umbrella = this.umbrellaRepository.create(data);
+    return this.umbrellaRepository.save(umbrella);
   }
 
   findAll() {
-    return `This action returns all umbrellas`;
+    return this.umbrellaRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} umbrella`;
+    return this.umbrellaRepository.findOneBy({ id });
   }
 
-  update(id: number, updateUmbrellaDto: UpdateUmbrellaDto) {
-    return `This action updates a #${id} umbrella`;
+  updateStatus(id: number, status: Umbrella['status']) {
+    return this.umbrellaRepository.update(id, { status });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} umbrella`;
+    return this.umbrellaRepository.delete(id);
   }
 }
