@@ -11,6 +11,7 @@ import { UmbrellasModule } from './modules/umbrellas/umbrellas.module';
 import { StationsModule } from './modules/stations/stations.module';
 import { RentalsModule } from './modules/rentals/rentals.module';
 import { PaymentsModule } from './modules/payments/payments.module';
+import { NavigationModule } from './modules/navigation/navigation.module';
 
 @Module({
   imports: [
@@ -23,7 +24,9 @@ import { PaymentsModule } from './modules/payments/payments.module';
     UmbrellasModule,
     StationsModule,
     RentalsModule,
-    PaymentsModule,],
+    PaymentsModule,
+    NavigationModule,
+  ],
   controllers: [AppController],
   providers: [AppService, AppConfigService],
 })

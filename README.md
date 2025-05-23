@@ -40,31 +40,8 @@ UMO는 우산을 필요한 순간에 대여하고, 자유롭게 반납할 수 �
 - Redis (캐싱/세션), JWT 인증
 - Swagger 문서화
 
-**프론트엔드**
-- Next.js (React 기반)
-- Tailwind CSS
-- Axios 통신
-- Progressive Web App (PWA) 지원
-
 **기타**
 - GCP, Vercel, Docker
 - S3 (우산 위치 데이터 이미지)
 
 ---
-
-## 🚀 프로젝트 실행 방법
-
-```bash
-# 1. 레포 클론
-git clone https://github.com/kisesesky19/umo.git
-cd umo
-
-# 2. 환경 변수 설정
-cp .env.example .env
-
-# 3. 의존성 설치
-npm install
-
-# 4. 개발 서버 실행
-npm run start:dev
-
