@@ -30,27 +30,6 @@ export class StationsService {
   remove(id: number) {
     return this.stationRepo.delete(id);
   }
-
-  async findNearby(lat: number, lng: number, maxDistance = 3): Promise<any[]> {
-    const stations = await this.stationRepo.find({ relations: ['umbrellas'] });
-  
-    return stations
-      .map(station => {
-        const distance = calculateDistance(lat, lng, station.latitude, station.longitude);
-        const availableCount = station.umbrellas.filter(u => u.status === 'idle').length;
-  
-        return {
-          id: station.id,
-          name: station.name,
-          latitude: station.latitude,
-          longitude: station.longitude,
-          distance,
-          availableUmbrellas: availableCount,
-        };
-      })
-      .filter(station => station.distance <= maxDistance)
-      .sort((a, b) => a.distance - b.distance);
-  }
   
   async getStationsForMap() {
     const stations = await this.stationRepo.find({ relations: ['umbrellas'] });
@@ -69,5 +48,37 @@ export class StationsService {
       };
     });
   }
-  
+
+  async findNearby(lat: number, lng: number): Promise<any[]> {
+    const radiusInKm = 1; // 반경 1km
+    const stations = await this.stationRepo
+      .createQueryBuilder('station')
+      .addSelect(`
+        (6371 * acos(
+          cos(radians(:lat)) *
+          cos(radians(station.latitude)) *
+          cos(radians(station.longitude) - radians(:lng)) +
+          sin(radians(:lat)) *
+          sin(radians(station.latitude))
+        ))`, 'distance')
+      .having('distance < :radius', { radius: radiusInKm })
+      .setParameters({ lat, lng })
+      .getMany();
+
+    return Promise.all(
+      stations.map(async (station) => {
+        const availableUmbrellas = await this.stationRepo.manager.count('umbrella', {
+          where: { station: station.id, isAvailable: true },
+        });
+
+        return {
+          id: station.id,
+          name: station.name,
+          latitude: station.latitude,
+          longitude: station.longitude,
+          availableUmbrellas,
+        };
+      }),
+    );
+  }
 }
