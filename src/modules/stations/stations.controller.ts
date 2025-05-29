@@ -1,5 +1,5 @@
 // src/stations/stations.controller.ts
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Post, Query } from '@nestjs/common';
 import { StationsService } from './stations.service';
 
 @Controller('stations')
@@ -12,5 +12,15 @@ export class StationsController {
     @Query('lng') lng: string,
   ) {
     return this.stationsService.findNearby(+lat, +lng);
+  }
+
+  @Post('init')
+  async initializeStations() {
+    return this.stationsService.initializeStations();
+  }
+
+  @Get('map')
+  async getStationsForMap() {
+    return this.stationsService.getStationsForMap();
   }
 }

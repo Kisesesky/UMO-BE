@@ -15,6 +15,6 @@ export class Station {
   @Column()
   longitude: number;
 
-  @OneToMany(() => Umbrella, umbrella => umbrella.station)
+  @OneToMany(() => Umbrella, (umbrella) => umbrella.station)
   umbrellas: Umbrella[];
 }

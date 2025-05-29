@@ -24,12 +24,8 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: [
-      'http://localhost:3000', // 개발용 프론트 주소
-      'http://localhost:8080', // 개발용 프론트 주소
-      'https://your-frontend.com', // 배포용 프론트 주소
-      '*'
-    ],
+    origin: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
   });
 
